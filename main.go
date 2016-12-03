@@ -10,7 +10,7 @@ import (
 
 var publisher = make(chan publishRequest)
 
-var chanell string
+var channel string
 var token string
 
 type publishRequest struct {
@@ -25,7 +25,7 @@ func main() {
 }
 
 func initVars() {
-	chanell = os.Getenv("CHANELL")
+	channel = os.Getenv("CHANNEL")
 	token = os.Getenv("TOKEN")
 }
 
@@ -34,7 +34,7 @@ func startSender() {
 		message := <-publisher
 		log.Println("message accepted", message)
 		slackURL := "https://slack.com/api/chat.postMessage?token=" + token +
-			"&channel=" + url.QueryEscape(chanell) + "&text=" + url.QueryEscape(message.Text)
+			"&channel=" + url.QueryEscape(channel) + "&text=" + url.QueryEscape(message.Text)
 		log.Println("request on", slackURL)
 		resp, err := http.Post(slackURL, "text/plain", nil)
 		if err != nil {
