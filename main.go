@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 )
 
@@ -24,10 +25,10 @@ func startSender() {
 	for {
 		message := <-publisher
 		log.Println("message accepted", message)
-		url := "https://slack.com/api/chat.postMessage?token=" + os.Getenv("TOKEN") +
-			"&channel=" + message.Channel + "&text=" + message.Text
-		log.Println("request on", url)
-		resp, err := http.Post(url, "text/plain", nil)
+		slackURL := "https://slack.com/api/chat.postMessage?token=" + os.Getenv("TOKEN") +
+			"&channel=" + url.QueryEscape(message.Channel) + "&text=" + url.QueryEscape(message.Text)
+		log.Println("request on", slackURL)
+		resp, err := http.Post(slackURL, "text/plain", nil)
 		if err != nil {
 			log.Println("error", err)
 		} else {
