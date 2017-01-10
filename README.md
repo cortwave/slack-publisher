@@ -1,6 +1,8 @@
 # slack-publisher
 lightweight dockerized daemon for publishing messages to slack
 
+[![Build Status](https://travis-ci.org/cortwave/slack-publisher.svg?branch=master)](https://travis-ci.org/cortwave/slack-publisher)
+
 ## Build (optionally, needed to update ca-certificates)
 
 ``` bash
